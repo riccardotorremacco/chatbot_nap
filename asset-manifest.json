@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/chatbot_nap/static/css/main.b7068f00.css",
+    "main.js": "/chatbot_nap/static/js/main.41b0f641.js",
+    "static/js/453.78b945df.chunk.js": "/chatbot_nap/static/js/453.78b945df.chunk.js",
+    "index.html": "/chatbot_nap/index.html",
+    "main.b7068f00.css.map": "/chatbot_nap/static/css/main.b7068f00.css.map",
+    "main.41b0f641.js.map": "/chatbot_nap/static/js/main.41b0f641.js.map",
+    "453.78b945df.chunk.js.map": "/chatbot_nap/static/js/453.78b945df.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7068f00.css",
+    "static/js/main.41b0f641.js"
+  ]
+}
