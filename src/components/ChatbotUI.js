@@ -5,40 +5,92 @@ import {
 } from 'lucide-react';
 import './ChatbotUI.css';
 
+// URL del backend API
+const API_URL = 'http://localhost:8000/api';
+
 const ChatbotUI = () => {
   const [messages, setMessages] = useState([
-    { sender: 'bot', text: 'Ciao Pasquale, inserisci il codice avviso ed il codice fiscale.' },
-    { sender: 'user', text: 'Dove trovo il codice di avviso?' },
-    { sender: 'bot', text: "Il codice si trova sull'avviso di pagamento ed è composto da 18 cifre." },
-    { sender: 'user', text: 'Codice fiscale: PPAHSHBDOSNP839J , Codice di avviso: 193891485701AGJ384' },
-    { sender: 'bot', text: 'Ecco la ricevuta che stavi cercando:' }
+    { sender: 'bot', text: 'Ciao, sono l\'assistente virtuale del Comune di Napoli. Come posso aiutarti oggi?' }
   ]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Verifica la connessione all'API all'avvio
+  useEffect(() => {
+    const checkConnection = async () => {
+      try {
+        const response = await fetch(`${API_URL}/health`);
+        const data = await response.json();
+        setIsConnected(data.status === 'healthy');
+      } catch (error) {
+        console.error('Errore di connessione al server:', error);
+        setIsConnected(false);
+      }
+    };
+
+    checkConnection();
+  }, []);
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const sendMessageToAPI = async (userMessage) => {
+    try {
+      // Prepara i messaggi nel formato richiesto dall'API
+      const apiMessages = messages.map(msg => ({
+        role: msg.sender === 'bot' ? 'assistant' : 'user',
+        content: msg.text
+      }));
+      
+      // Aggiungi il messaggio dell'utente corrente
+      apiMessages.push({
+        role: 'user',
+        content: userMessage
+      });
+
+      // Invia la richiesta all'API
+      const response = await fetch(`${API_URL}/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages: apiMessages })
+      });
+
+      if (!response.ok) {
+        throw new Error('Errore nella risposta del server');
+      }
+
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Errore nella chiamata API:', error);
+      return 'Mi dispiace, si è verificato un errore nella comunicazione con il server. Riprova più tardi.';
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (inputText.trim() === '') return;
 
     // Aggiungi messaggio utente
-    const newMessages = [...messages, { sender: 'user', text: inputText }];
+    const userMessage = inputText;
+    const newMessages = [...messages, { sender: 'user', text: userMessage }];
     setMessages(newMessages);
     setInputText('');
 
-    // Simula risposta bot
+    // Mostra indicatore di digitazione
     setIsTyping(true);
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages([...newMessages, { 
-        sender: 'bot', 
-        text: "Sto elaborando la tua richiesta. Per favore attendi mentre verifico le informazioni nel nostro database." 
-      }]);
-    }, 2000);
+
+    // Invia messaggio all'API e attendi risposta
+    const botResponse = await sendMessageToAPI(userMessage);
+    
+    // Nascondi indicatore di digitazione e aggiungi risposta del bot
+    setIsTyping(false);
+    setMessages([...newMessages, { sender: 'bot', text: botResponse }]);
   };
 
   // Auto-scroll ai messaggi più recenti
@@ -113,10 +165,12 @@ const ChatbotUI = () => {
             {/* Status del servizio */}
             <div className="napl-service-status">
               <div className="napl-status-icon">
-                <CheckCircle size={18} />
+                <CheckCircle size={18} color={isConnected ? "#4CAF50" : "#F44336"} />
               </div>
               <div className="napl-status-text">
-                Tutti i servizi sono operativi. Richieste elaborate in tempo reale.
+                {isConnected 
+                  ? "Tutti i servizi sono operativi. Richieste elaborate in tempo reale." 
+                  : "Alcuni servizi potrebbero non essere disponibili. La connessione all'API è offline."}
               </div>
             </div>
             
@@ -172,7 +226,7 @@ const ChatbotUI = () => {
               <button type="button" className="napl-button">
                 <Mic size={20} />
               </button>
-              <button type="submit" className="napl-send-button">
+              <button type="submit" className="napl-send-button" disabled={isTyping}>
                 <Send size={18} />
               </button>
             </form>
