@@ -20,9 +20,34 @@
   --hover-color: #f0f2f5;
 }
 
+:root {
+  --primary-color: #0056a3; /* Blu Napoli */
+  --secondary-color: #ffd700; /* Giallo Napoli */
+  --accent-color: #0066cc;
+  --text-color: #333333;
+  --light-bg: #f9fafc;
+  --border-color: #e1e4e8;
+  --light-text: #757575;
+  --success-color: #4CAF50;
+  --error-color: #F44336;
+  --hover-color: #f0f2f5;
+}
+
 body {
   background-color: var(--light-bg);
+  background-color: var(--light-bg);
   font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-color);
+}
+
+/* Stili per il tema scuro */
+body.dark-theme {
+  --text-color: #d4d4d4;
+  --light-bg: #1e1e1e;
+  --border-color: #444444;
+  --hover-color: #2a2a2a;
+  --light-text: #a0a0a0;
+  background-color: var(--light-bg);
   color: var(--text-color);
 }
 
@@ -37,18 +62,22 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.07);
 }
 
+body.dark-theme .napl-container {
+  background-color: #252525;
+}
+
 /* Banner superiore */
 .napl-banner {
   display: flex;
   align-items: center;
   background-color: var(--primary-color);
   color: white;
-  padding: 15px 20px;
-  border-bottom: 3px solid var(--secondary-color);
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 .napl-banner-logo {
-  height: 40px;
+  height: 10px;
   margin-right: 15px;
 }
 
@@ -63,15 +92,24 @@ body {
   opacity: 0.9;
 }
 
+body.dark-theme .napl-banner {
+  border-bottom-color: var(--secondary-color);
+}
+
 /* Header */
 .napl-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 15px 20px;
   border-bottom: 1px solid var(--border-color);
   background-color: #FFFFFF;
   min-height: 70px;
+}
+
+body.dark-theme .napl-header {
+  background-color: #252525;
+  border-bottom-color: var(--border-color);
 }
 
 .napl-header-left {
@@ -83,10 +121,26 @@ body {
   margin-left: 12px;
 }
 
+.napl-header-title-container {
+  margin-left: 12px;
+}
+
 .napl-header-title {
   margin: 0;
   font-size: 18px;
+  font-size: 18px;
   font-weight: 600;
+  color: var(--primary-color);
+}
+
+.napl-header-subtitle {
+  font-size: 13px;
+  color: var(--light-text);
+  margin-top: 2px;
+}
+
+.napl-logo-icon {
+  color: var(--primary-color);
   color: var(--primary-color);
 }
 
@@ -121,6 +175,11 @@ body {
   transition: all 0.2s ease;
 }
 
+body.dark-theme .napl-action-button {
+  background-color: #333333;
+  color: var(--primary-color);
+}
+
 .napl-action-button:hover {
   background-color: var(--hover-color);
   border-color: var(--primary-color);
@@ -145,12 +204,17 @@ body {
   height: 24px;
   border-radius: 50%;
   border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   transition: transform 0.2s;
 }
 
 .napl-theme-option:hover {
   transform: scale(1.1);
+}
+
+.napl-theme-option.active {
+  border: 2px solid var(--primary-color);
 }
 
 .napl-theme-dark {
@@ -164,13 +228,17 @@ body {
 .napl-avatar {
   width: 38px;
   height: 38px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
+  background-color: var(--primary-color);
   background-color: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-weight: 600;
+  font-size: 16px;
   font-size: 16px;
 }
 
@@ -182,14 +250,21 @@ body {
 }
 
 /* Sidebar */
+/* Sidebar */
 .napl-sidebar {
   width: 64px;
   background-color: #f8f9fa;
+  border-right: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
+}
+
+body.dark-theme .napl-sidebar {
+  background-color: #2a2a2a;
+  border-right-color: var(--border-color);
 }
 
 .napl-sidebar-icon {
@@ -203,14 +278,18 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   color: var(--light-text);
+  color: var(--light-text);
 }
 
 .napl-sidebar-icon:hover {
   background-color: var(--hover-color);
   color: var(--primary-color);
+  background-color: var(--hover-color);
+  color: var(--primary-color);
 }
 
 .napl-sidebar-icon.active {
+  background-color: var(--primary-color);
   background-color: var(--primary-color);
   color: white;
 }
@@ -228,59 +307,16 @@ body {
   display: flex;
   flex-direction: column;
   padding: 10px 15px;
-  overflow-y: hidden;
+  overflow-y: auto;
   background-color: #FFFFFF;
 }
 
-/* Barra delle icone superiori */
-.napl-top-icons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px 0 20px;
+body.dark-theme .napl-content {
+  background-color: #252525;
 }
 
-.napl-top-icon-button {
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f8f9fa;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: var(--light-text);
-}
-
-.napl-top-icon-button:hover {
-  background-color: var(--hover-color);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-/* Status del servizio */
-.napl-service-status {
-  max-width: 100%;
-  width: 100%;
-  margin: 0 auto 15px auto;
-  padding: 10px 15px;
-  background-color: #f8f9ff;
-  border-radius: 8px;
-  border-left: 4px solid var(--primary-color);
-  display: flex;
-  align-items: center;
-}
-
-.napl-status-icon {
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-
-.napl-status-text {
-  font-size: 14px;
-  color: var(--text-color);
+body.dark-theme .napl-service-status {
+  background-color: #2a2a2a;
 }
 
 /* Quick Actions */
@@ -288,7 +324,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  justify-content: center;
 }
 
 .napl-quick-button {
@@ -311,6 +348,17 @@ body {
   color: white;
 }
 
+body.dark-theme .napl-quick-button {
+  background-color: #303030;
+  color: var(--primary-color);
+  border-color: var(--border-color);
+}
+
+body.dark-theme .napl-quick-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
 /* Messaggi */
 .napl-messages {
   width: 100%;
@@ -325,8 +373,9 @@ body {
 
 .napl-message {
   margin-bottom: 24px;
+  margin-bottom: 24px;
   max-width: 80%;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: napl-fadeIn 0.3s ease-in-out;
 }
 
 .napl-message.bot {
@@ -350,10 +399,13 @@ body {
 .napl-sender-icon {
   width: 32px;
   height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 14px;
   font-size: 14px;
   font-weight: bold;
   flex-shrink: 0;
@@ -363,10 +415,14 @@ body {
   margin-right: 8px;
   background-color: var(--primary-color);
   color: white;
+  background-color: var(--primary-color);
+  color: white;
 }
 
 .napl-message.user .napl-sender-icon {
   margin-left: 8px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   background-color: var(--secondary-color);
   color: var(--primary-color);
   order: 2;
@@ -388,18 +444,66 @@ body {
   margin-left: 0;
 }
 
+.napl-message-time {
+  font-size: 12px;
+  color: var(--light-text);
+  margin-left: 6px;
+}
+
+.napl-message.user .napl-message-time {
+  margin-right: 6px;
+  margin-left: 0;
+}
+
 .napl-message.bot .napl-message-sender {
+  color: var(--primary-color);
   color: var(--primary-color);
 }
 
 .napl-message.user .napl-message-sender {
   color: var(--text-color);
+  color: var(--text-color);
 }
 
 .napl-message-text {
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text-color);
+}
+
+/* Stile per il testo Markdown */
+.napl-message-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+/* Grassetto */
+.napl-message-text strong {
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* Corsivo */
+.napl-message-text em {
+  font-style: italic;
+  color: var(--secondary-color);
+}
+
+/* Liste */
+.napl-message-text ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.napl-message-text li {
+  margin-bottom: 5px;
+}
+
+/* Emoji */
+.napl-message-text span.emoji {
+  font-size: 18px;
+  margin-right: 5px;
 }
 
 .napl-message.bot .napl-message-text {
@@ -421,6 +525,17 @@ body {
   max-width: 100%;
   display: inline-block;
   margin-left: auto;
+}
+
+body.dark-theme .napl-message.bot .napl-message-text {
+  background-color: #303030;
+  border-left-color: var(--primary-color);
+}
+
+body.dark-theme .napl-message.user .napl-message-text {
+  background-color: var(--primary-color);
+  color: white;
+  border-right-color: var(--secondary-color);
 }
 
 .napl-message-actions {
@@ -451,97 +566,139 @@ body {
   color: var(--primary-color);
 }
 
-/* Typing indicator */
-.napl-typing {
-  display: flex;
-  margin-top: 5px;
-  padding: 8px 12px;
+/* Stile per il contenitore dell'animazione di caricamento */
+.napl-loading-container {
+  padding: 15px;
   background-color: #f1f6fb;
   border-radius: 12px;
+  max-width: 60%;
+  margin-top: 5px;
+  border-left: 3px solid var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.napl-typing-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+body.dark-theme .napl-loading-container {
+  background-color: #303030;
+}
+
+/* Indicatore di digitazione migliorato */
+.napl-typing-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.napl-typing-text {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-right: 10px;
+}
+
+/* Stile per i punti di caricamento */
+.napl-typing-balls {
+  display: flex;
+  align-items: center;
+}
+
+/* Indicatore di caricamento migliorato */
+.napl-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Spazio tra i punti */
+}
+
+.napl-typing-ball {
+  width: 10px;
+  height: 10px;
   background-color: var(--primary-color);
-  margin-right: 4px;
-  animation: typing 1.4s infinite ease-in-out;
+  border-radius: 50%;
+  animation: napl-bounce 1.5s infinite ease-in-out;
 }
 
-.napl-typing-dot:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.napl-typing-dot:nth-child(2) {
+.napl-typing-ball:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-.napl-typing-dot:nth-child(3) {
+.napl-typing-ball:nth-child(3) {
   animation-delay: 0.4s;
 }
 
-/* Input area */
-.napl-input-container {
-  border-top: 1px solid var(--border-color);
-  padding: 15px 20px;
-  background-color: #FFFFFF;
+/* Definizione dell'animazione */
+@keyframes napl-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }
 
-.napl-input-form {
+.napl-input-form{
   display: flex;
-  max-width: 100%;
-  margin: 0 auto;
   align-items: center;
-  background-color: #f8f9fa;
-  border-radius: 24px;
-  padding: 5px 8px;
-  border: 1px solid var(--border-color);
-  transition: border-color 0.3s;
+  justify-content: center;
+  margin-top: 10px; 
 }
 
-.napl-input-form:focus-within {
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(0, 86, 163, 0.1);
+/* Contenitore dell'area di input */
+.napl-input-container {
+  background-color: var(--light-bg); /* Sfondo chiaro */
+  padding: 5px 8px; /* Spazio interno ridotto */
+  border-top: 1px solid var(--border-color); /* Bordo superiore */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05); 
 }
 
+/* Campo di input */
+.napl-input {
+  flex: 1; /* Occupa tutto lo spazio disponibile */
+  padding: 8px 12px; /* Spazio interno ridotto */
+  border: 1px solid var(--border-color); /* Bordo */
+  border-radius: 15px; /* Bordo arrotondato */
+  font-size: 14px; /* Dimensione del testo ridotta */
+  outline: none; /* Rimuove il bordo di focus predefinito */
+  transition: border-color 0.3s ease; /* Animazione al focus */
+  height: 40px; /* Altezza ridotta */
+}
+
+.napl-input:focus {
+  border-color: var(--primary-color); /* Cambia colore del bordo al focus */
+}
+
+/* Pulsanti accanto all'input */
 .napl-button {
-  background: none;
-  border: none;
+  background-color: var(--primary-color); /* Colore di sfondo */
+  color: white; /* Colore del testo */
+  border: none; /* Nessun bordo */
+  border-radius: 50%; /* Forma circolare */
+  width: 36px; /* Dimensione ridotta */
+  height: 36px; /* Dimensione ridotta */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  color: var(--light-text);
-  padding: 8px;
-  border-radius: 50%;
-  transition: all 0.2s;
-  flex-shrink: 0;
+  transition: background-color 0.3s ease;
 }
 
 .napl-button:hover {
-  background-color: var(--hover-color);
-  color: var(--primary-color);
+  background-color: var(--accent-color); /* Colore al passaggio del mouse */
 }
 
-.napl-input {
-  flex: 1;
-  padding: 10px 15px;
-  background: transparent;
-  border: none;
-  font-size: 15px;
-  outline: none;
-  color: var(--text-color);
-}
-
-.napl-input::placeholder {
-  color: var(--light-text);
-}
-
+/* Pulsante di invio */
 .napl-send-button {
-  background: var(--primary-color);
+  background-color: var(--success-color); /* Colore verde per il pulsante di invio */
   color: white;
-  border: none;
   border-radius: 50%;
-  width: 38px;
-  height: 38px;
+  width: 40px; /* Dimensione ridotta */
+  height: 40px; /* Dimensione ridotta */
   display: flex;
+  align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.napl-send-button:hover {
+  background-color: #218838; /* Colore più scuro al passaggio del mouse */
 }
